@@ -38,29 +38,28 @@ For ULX 3.50<
 	You can contact me here: http://forums.ulyssesmod.net/index.php?action=pm;sa=send;u=3539
 ]]
 
+ulx.setCategory( "Utilities" )
+
 -- Easy Config:
-local reports_enabled	= "1"			-- Set this to 0 if you want to disable this script
-local reports_in_logs	= "1"			-- Set this to 0 if you don't want to log reports in daily logs
-local reports_interval	= "120"			-- The player can only report once then he need to wait this interval (seconds) before reporting again. 0 = no delay (not recommended)
-local reports_folder	= "ulx_logs"	-- By default, in the same folder as others log files
+local r_enabled	= "1"			-- Set this to 0 if you want to disable this script
+local r_in_logs	= "1"			-- Set this to 0 if you don't want to log reports in daily logs
+local r_interval	= "120"			-- The player can only report once then he need to wait this interval (seconds) before reporting again. 0 = no delay (not recommended)
+local r_folder	= "ulx_logs"	-- By default, in the same folder as others log files
 -- End of config
 
 
-ulx.convar( "reports_enabled",  reports_enabled,  "", ULib.ACCESS_NONE )
-ulx.convar( "reports_in_logs",  reports_in_logs,  "", ULib.ACCESS_NONE )
-ulx.convar( "reports_interval", reports_interval, "", ULib.ACCESS_NONE )
-ulx.convar( "reports_folder",   reports_folder,   "", ULib.ACCESS_NONE )
+-- ulx.convar( "reports_enabled",  reports_enabled,  "", ULib.ACCESS_NONE )
+-- ulx.convar( "reports_in_logs",  reports_in_logs,  "", ULib.ACCESS_NONE )
+-- ulx.convar( "reports_interval", reports_interval, "", ULib.ACCESS_NONE )
+-- ulx.convar( "reports_folder",   reports_folder,   "", ULib.ACCESS_NONE )
 
---[[Hmm, bug with cvar_name? Won't show in the ulx help if there is _ in the name.
-ulx.convar( "reports_enabled", reports_enabled, "<0-1> - Set this to 0 if you want to disable the report command.", ULib.ACCESS_ADMIN )
-ulx.convar( "reports_in_logs", reports_in_logs, "<0-1> - Set this to 0 if you don't want to log reports in daily logs.", ULib.ACCESS_ADMIN )
-ulx.convar( "reports_interval", reports_interval, "<time> - Time between 2 reports from the same player. Set this to 0 to disable.", ULib.ACCESS_SUPERADMIN )
-ulx.convar( "reports_folder", reports_folder, "<folder> - The folder where to save the reports file.", ULib.ACCESS_SUPERADMIN )
-]]
+--[[Hmm, bug with cvar_name? Won't show in the ulx help if there is _ in the name.]]
+ulx.convar( "reports_enabled", r_enabled, "<0-1> - Set this to 0 if you want to disable the report command.", ULib.ACCESS_ADMIN )
+ulx.convar( "reports_in_logs", r_in_logs, "<0-1> - Set this to 0 if you don't want to log reports in daily logs.", ULib.ACCESS_ADMIN )
+ulx.convar( "reports_interval", r_interval, "<time> - Time between 2 reports from the same player. Set this to 0 to disable.", ULib.ACCESS_SUPERADMIN )
+ulx.convar( "reports_folder", r_folder, "<folder> - The folder where to save the reports file.", ULib.ACCESS_SUPERADMIN )
 
-if ulx.version >= 3.2 then
-	ulx.setCategory( "Utilities" )
-end
+
 
 ulx.report_file = nil
 
@@ -104,7 +103,7 @@ function ulx.cc_report( ply, command, argv, args )
 
 	-- reset the interval to it's default value if less than 0
 	if ( interval < 0 ) then
-		game.ConsoleCommand("ulx_reports_interval "..reports_interval.."\n")
+		game.ConsoleCommand("ulx_reports_interval "..r_interval.."\n")
 		
 	-- if interval is greater than 0, check player delay (antispam) 
 	elseif ( interval > 0 ) then
